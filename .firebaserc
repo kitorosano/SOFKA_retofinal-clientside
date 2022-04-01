@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "sofka-ferreteria-don-raul",
+    "prod": "sofka-ferreteria-don-raul"
+  },
+  "targets": {}
+}
