@@ -1,8 +1,9 @@
 import React, { useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { registrarUsuarioFirebase } from '../actions';
+import { errorMessage, registrarUsuarioFirebase } from '../actions';
 import backgroundImg from '../assets/img/background.jpg';
+import ErrorMsg from '../components/ErrorMsg';
 
 function Register() {
   const dispatch = useDispatch();
@@ -16,9 +17,9 @@ function Register() {
 
 		// Validacion que los datos del usuario (email, password, rol) no esten vacios, y que la password sea mayor a 6 caracteres
 		if (email.trim() === '' || password.trim() === '')
-			return alert('Todos los campos son obligatorios');
+			return dispatch(errorMessage('Todos los campos son obligatorios'));
 		if (password.length < 6)
-			return alert('La contraseña debe tener al menos 6 caracteres');
+			return dispatch(errorMessage('La contraseña debe tener al menos 6 caracteres'));
 
     dispatch(registrarUsuarioFirebase(email, password));
 
@@ -35,6 +36,7 @@ function Register() {
 				alt=''
 			/>
 			<div className='w-full h-screen flex'>
+        <ErrorMsg />
 				<div className='bg-white z-10 grid grid-cols-1 m-auto shadow-lg shadow-grey-600 w-1/3 '>
 					<div className='flex flex-col justify-around m-5 p-8 lg:p-5 '>
 						<form onSubmit={handleSubmit}>

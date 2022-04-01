@@ -4,11 +4,12 @@ import React from 'react';
 
 import backgroundImg from '../assets/img/background.jpg';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { iniciarSesionFirebase } from '../actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { errorMessage, iniciarSesionFirebase } from '../actions';
+import ErrorMsg from '../components/ErrorMsg';
 
 function Login() {
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -19,9 +20,9 @@ function Login() {
 
 		// Validacion que los datos del usuario (email, password, rol) no esten vacios, y que la password sea mayor a 6 caracteres
 		if (email.trim() === '' || password.trim() === '')
-			return alert('Todos los campos son obligatorios');
+			return dispatch(errorMessage('Todos los campos son obligatorios'));
 
-    dispatch(iniciarSesionFirebase(email, password));
+		dispatch(iniciarSesionFirebase(email, password));
 
 		// Vaciar campos
 		e.target.elements.email.value = '';
@@ -36,6 +37,8 @@ function Login() {
 				alt=''
 			/>
 			<div className='w-full h-screen flex'>
+        <ErrorMsg />
+					
 				<div className='bg-white z-10 grid grid-cols-1 lg:grid-cols-2 m-auto h-[500px] shadow-lg shadow-grey-600 sm:max-w-[900px]'>
 					<div className='w-full hidden lg:block'>
 						<img
@@ -78,7 +81,9 @@ function Login() {
 							<button className='w-full py-2 my-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded'>
 								Entrar
 							</button>
-							<p className='flex text-center'>Olvidaste tu contraseña?</p>
+							<span 
+              onClick={() => alert("Por el momento no esta disponible")}
+              className='text-left text-indigo-600 hover:text-indigo-400 hover:underline cursor-pointer'>¿Olvidaste tu contraseña?</span>
 							<p className='text-center mt-8'>
 								No tienes una cuenta?{' '}
 								<Link

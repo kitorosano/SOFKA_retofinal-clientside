@@ -3,6 +3,7 @@ const initialState = {
   autenticado: false,
   user: null,
   errorMsg: '',
+  loading: true,
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -31,6 +32,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         errorMsg: action.payload
+      }
+    case 'LOADING':
+      return {
+        ...state,
+        loading: action.payload
       }
     default: return state;
   }
