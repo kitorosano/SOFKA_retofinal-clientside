@@ -13,6 +13,8 @@ export const handleFirebaseSigninErrors = (error) => {
 
 export const handleFirebaseLoginErrors = (error) => {
   switch (error.code) {
+    case 'auth/invalid-email':
+      return 'El email no es valido';
     case 'auth/user-not-found':
       return 'El usuario no existe';
     case 'auth/wrong-password':

@@ -60,7 +60,6 @@ export const obtenerUsuarioAutenticado = (currentUser) => async (dispatch) => {
 			payload: usuario,
 		});
 	} catch (error) {
-		console.log(error);
 		dispatch(globalMessage(error.message, 'ERROR'));
 	} finally {
 		dispatch(setLoading(false));
@@ -70,7 +69,7 @@ export const obtenerUsuarioAutenticado = (currentUser) => async (dispatch) => {
 export const quitarUsuarioAutenticado = () => async (dispatch) => {
 	dispatch(setLoading(true));
 	try {
-		await signOut(auth);
+		signOut(auth);
 		dispatch({ type: 'CERRAR_SESION' });
 	} catch (error) {
 		dispatch(globalMessage(error.message, 'ERROR'));

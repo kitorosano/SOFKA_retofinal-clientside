@@ -11,7 +11,10 @@ import Login from './containers/Login';
 import Register from './containers/Register';
 import Loading from './components/layout/Loading';
 import { useEffect, useState } from 'react';
-import { obtenerUsuarioAutenticado, quitarUsuarioAutenticado } from './actions/usuariosAction';
+import {
+	obtenerUsuarioAutenticado,
+	quitarUsuarioAutenticado,
+} from './actions/usuariosAction';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
 import ProductView from './components/ProductView';
@@ -22,13 +25,10 @@ function App() {
 	const user = useSelector((state) => state.usuarios.user);
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		onAuthStateChanged(auth, (currentUser) => {
-			if (currentUser && !user)
-				dispatch(obtenerUsuarioAutenticado(currentUser));
-			else dispatch(quitarUsuarioAutenticado());
-		});
-	}, []);
+	onAuthStateChanged(auth, (currentUser) => {
+		if (currentUser && !user) dispatch(obtenerUsuarioAutenticado(currentUser));
+		else dispatch(quitarUsuarioAutenticado());
+	});
 
 	return (
 		<Router>
