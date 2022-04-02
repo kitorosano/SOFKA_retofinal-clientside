@@ -5,7 +5,7 @@ import {
 	signInWithEmailAndPassword,
 	signOut,
 } from 'firebase/auth';
-import {handleSigninErrors, handleLoginErrors} from '../helpers/handleFirebaseErrorsMessages'; 
+import {handleFirebaseSigninErrors, handleFirebaseLoginErrors} from '../helpers/handleErrorsMessages'; 
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -19,7 +19,7 @@ export const registrarUsuarioFirebase =
 				password
 			);
       
-			await fetch(BACKEND_URL + '/usuarios', {
+			await fetch(`${BACKEND_URL}/usuarios`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ export const registrarUsuarioFirebase =
       })
 			dispatch({ type: 'REGISTRO_EXITOSO' }); //Usuario autenticado en firebase
 		} catch (error) {
-      dispatch(errorMessage(handleSigninErrors(error)));
+      dispatch(errorMessage(handleFirebaseSigninErrors(error)));
 		}
 	};
 
@@ -42,20 +42,22 @@ export const iniciarSesionFirebase = (email, password) => async (dispatch) => {
 		await signInWithEmailAndPassword(auth, email, password);
 		dispatch({ type: 'LOGIN_EXITOSO' }); //Usuario autenticado en firebase
 	} catch (error) {
-    dispatch(errorMessage(handleLoginErrors(error)));
+    dispatch(errorMessage(handleFirebaseLoginErrors(error)));
 	}
 };
 
 export const obtenerUsuarioAutenticado =
 	(currentUser) => async (dispatch) => {
 		try {
-      const respuesta = await fetch(BACKEND_URL + '/usuarios/' + currentUser.uid)
+      const respuesta = await fetch(`${BACKEND_URL}/usuarios/${currentUser.uid}`)
+      const usuario = await respuesta.json();
 			dispatch({
 				type: 'USUARIO_OBTENIDO',
-				payload: respuesta.data,
+				payload: usuario,
 			});
 		} catch (error) {
-			dispatch(errorMessage(error.response.data));
+      console.log(error)
+			dispatch(errorMessage(error.message));
 		} finally {
 			dispatch(setLoading(false));
 		}

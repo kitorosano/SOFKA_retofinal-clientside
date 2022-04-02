@@ -1,22 +1,19 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import Sidebar from '../components/Sidebar'
-import ProductList from '../components/ProductList'
-import FacturaView from '../components/FacturaView'
-import VolanteView from '../components/VolanteView'
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import Sidebar from '../components/Sidebar';
+import Header from '../components/Header';
 
 function Dashboard() {
-  return (
-    <div>
-      <Sidebar />
+	return (
+		<div className='flex'>
+			<Sidebar />
 
-      <Routes>
-        <Route path='/' elements={<ProductList />}/>
-        <Route path='/factura' elements={<FacturaView />}/>
-        <Route path='/volante' elements={<VolanteView />}/>
-      </Routes>
-    </div>
-  )
+			<div className="flex-1 bg-slate-100">
+				<Header />
+				<Outlet />
+			</div>
+		</div>
+	);
 }
 
-export default Dashboard
+export default Dashboard;

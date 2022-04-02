@@ -1,4 +1,4 @@
-export const handleSigninErrors = (error) => {
+export const handleFirebaseSigninErrors = (error) => {
   switch (error.code) {
     case 'auth/email-already-in-use':
       return 'El email ya esta en uso';
@@ -11,7 +11,7 @@ export const handleSigninErrors = (error) => {
   }
 };
 
-export const handleLoginErrors = (error) => {
+export const handleFirebaseLoginErrors = (error) => {
   switch (error.code) {
     case 'auth/user-not-found':
       return 'El usuario no existe';

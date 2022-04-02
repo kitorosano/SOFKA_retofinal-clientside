@@ -14,6 +14,9 @@ import { useEffect, useState } from 'react';
 import { obtenerUsuarioAutenticado, quitarUsuarioAutenticado } from './actions';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
+import ProductView from './components/ProductView';
+import FacturaView from './components/FacturaView';
+import VolanteView from './components/VolanteView';
 
 function App() {
 	const user = useSelector((state) => state.user);
@@ -50,14 +53,17 @@ function App() {
 					}
 				/>
 				<Route
-					exact
 					path='/dashboard'
 					element={
 						<PrivateOutlet auth={user}>
 							<Dashboard />
 						</PrivateOutlet>
 					}
-				/>
+				>
+					<Route exact path='/dashboard' element={<ProductView />} />
+					<Route exact path='/dashboard/factura' element={<FacturaView />} />
+					<Route exact path='/dashboard/volante' element={<VolanteView />} />
+				</Route>
 			</Routes>
 		</Router>
 	);

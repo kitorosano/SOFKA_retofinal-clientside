@@ -1,3 +1,15 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+@layer components {
+  .transition-btn {
+    transition: background-color .3s ease;
+  }
+  .sidebar-btn {  
+    @apply w-full block mt-8 p-6 text-2xl font-normal border-none rounded-lg transition-btn hover:cursor-pointer bg-slate-800 text-white hover:bg-slate-700;
+  }
+  .active {
+    @apply font-semibold bg-transparent text-slate-800 hover:bg-slate-300 transition-none;
+  }
+}
