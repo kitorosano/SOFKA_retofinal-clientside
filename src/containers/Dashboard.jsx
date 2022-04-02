@@ -5,10 +5,11 @@ import Header from '../components/Header';
 
 function Dashboard() {
 	return (
-		<div className='flex'>
-			<Sidebar />
-
-			<div className="flex-1 bg-slate-100">
+		<div className='flex scrollbar-default'>
+			<div className='w-1/5 relative'>
+				<Sidebar />
+			</div>
+			<div className='flex-1 bg-slate-100'>
 				<Header />
 				<Outlet />
 			</div>
