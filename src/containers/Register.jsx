@@ -1,15 +1,16 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { errorMessage, registrarUsuarioFirebase } from '../actions';
+import { registrarUsuarioFirebase } from '../actions/usuariosAction';
+import { globalMessage } from '../actions/utilsActions';
 import backgroundImg from '../assets/img/background.jpg';
-import ErrorMsg from '../components/ErrorMsg';
+import Message from '../components/Message';
 
 function Register() {
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-  const handleSubmit = e => {
-    e.preventDefault();
+	const handleSubmit = (e) => {
+		e.preventDefault();
 
 		// obtener campos
 		const email = e.target.elements.email.value;
@@ -17,16 +18,20 @@ function Register() {
 
 		// Validacion que los datos del usuario (email, password, rol) no esten vacios, y que la password sea mayor a 6 caracteres
 		if (email.trim() === '' || password.trim() === '')
-			return dispatch(errorMessage('Todos los campos son obligatorios'));
+			return dispatch(
+				globalMessage('Todos los campos son obligatorios', 'ERROR')
+			);
 		if (password.length < 6)
-			return dispatch(errorMessage('La contraseña debe tener al menos 6 caracteres'));
+			return dispatch(
+				globalMessage('La contraseña debe tener al menos 6 caracteres', 'ERROR')
+			);
 
-    dispatch(registrarUsuarioFirebase(email, password));
+		dispatch(registrarUsuarioFirebase(email, password));
 
-    // Vaciar campos
-    e.target.elements.email.value = '';
-    e.target.elements.password.value = '';
-  };
+		// Vaciar campos
+		e.target.elements.email.value = '';
+		e.target.elements.password.value = '';
+	};
 
 	return (
 		<div className='relative w-full h-screen bg-zinc-900/90'>
@@ -36,7 +41,7 @@ function Register() {
 				alt=''
 			/>
 			<div className='w-full h-screen flex'>
-        <ErrorMsg />
+				<Message />
 				<div className='bg-white z-10 grid grid-cols-1 m-auto shadow-lg shadow-grey-600 w-1/3 '>
 					<div className='flex flex-col justify-around m-5 p-8 lg:p-5 '>
 						<form onSubmit={handleSubmit}>
@@ -46,7 +51,7 @@ function Register() {
 							<div className='flex flex-col mb-4'>
 								<label>Correo</label>
 								<input
-                  id='email'
+									id='email'
 									className='border relative bg-gray-100 p-2'
 									type='text'
 								/>
@@ -54,7 +59,7 @@ function Register() {
 							<div className='flex flex-col'>
 								<label>Contraseña</label>
 								<input
-                  id='password'
+									id='password'
 									className='border relative bg-gray-100 p-2'
 									type='password'
 								/>

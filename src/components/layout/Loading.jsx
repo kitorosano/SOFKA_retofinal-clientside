@@ -3,7 +3,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 function Loading() {
-	const loading = useSelector((state) => state.loading);
+	const loading = useSelector((state) => state.utils.loading);
 
 	return (
 		loading && (

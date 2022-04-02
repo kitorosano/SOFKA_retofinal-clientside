@@ -5,8 +5,9 @@ import React from 'react';
 import backgroundImg from '../assets/img/background.jpg';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { errorMessage, iniciarSesionFirebase } from '../actions';
-import ErrorMsg from '../components/ErrorMsg';
+import { iniciarSesionFirebase } from '../actions/usuariosAction';
+import Message from '../components/Message';
+import { globalMessage } from '../actions/utilsActions';
 
 function Login() {
 	const dispatch = useDispatch();
@@ -20,7 +21,9 @@ function Login() {
 
 		// Validacion que los datos del usuario (email, password, rol) no esten vacios, y que la password sea mayor a 6 caracteres
 		if (email.trim() === '' || password.trim() === '')
-			return dispatch(errorMessage('Todos los campos son obligatorios'));
+			return dispatch(
+				globalMessage('Todos los campos son obligatorios', 'ERROR')
+			);
 
 		dispatch(iniciarSesionFirebase(email, password));
 
@@ -37,8 +40,8 @@ function Login() {
 				alt=''
 			/>
 			<div className='w-full h-screen flex'>
-        <ErrorMsg />
-					
+				<Message />
+
 				<div className='bg-white z-10 grid grid-cols-1 lg:grid-cols-2 m-auto h-[500px] shadow-lg shadow-grey-600 sm:max-w-[900px]'>
 					<div className='w-full hidden lg:block'>
 						<img
@@ -81,9 +84,12 @@ function Login() {
 							<button className='w-full py-2 my-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded'>
 								Entrar
 							</button>
-							<span 
-              onClick={() => alert("Por el momento no esta disponible")}
-              className='text-left text-indigo-600 hover:text-indigo-400 hover:underline cursor-pointer'>¿Olvidaste tu contraseña?</span>
+							<span
+								onClick={() => alert('Por el momento no esta disponible')}
+								className='text-left text-indigo-600 hover:text-indigo-400 hover:underline cursor-pointer'
+							>
+								¿Olvidaste tu contraseña?
+							</span>
 							<p className='text-center mt-8'>
 								No tienes una cuenta?{' '}
 								<Link

@@ -9,9 +9,9 @@ import { PrivateOutlet, PublicOutlet } from './helpers/customRoute';
 import Dashboard from './containers/Dashboard';
 import Login from './containers/Login';
 import Register from './containers/Register';
-import Loading from './components/Loading';
+import Loading from './components/layout/Loading';
 import { useEffect, useState } from 'react';
-import { obtenerUsuarioAutenticado, quitarUsuarioAutenticado } from './actions';
+import { obtenerUsuarioAutenticado, quitarUsuarioAutenticado } from './actions/usuariosAction';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
 import ProductView from './components/ProductView';
@@ -19,7 +19,7 @@ import FacturaView from './components/FacturaView';
 import VolanteView from './components/VolanteView';
 
 function App() {
-	const user = useSelector((state) => state.user);
+	const user = useSelector((state) => state.usuarios.user);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
